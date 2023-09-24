@@ -58,7 +58,7 @@ const Countdown = () => {
 				Start timer
 			</button>
 		) : isPaused ? (
-			<span aria-live='polite'>Paused</span>
+			<span aria-live='polite'>Paused...</span>
 		) : (
 			<span aria-live='polite'>{timeLeft}</span>
 		);
