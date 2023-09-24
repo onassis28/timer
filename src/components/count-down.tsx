@@ -17,6 +17,20 @@ const Countdown = () => {
 		}
 	}, [timeLeft, isPaused]);
 
+	const handleKeyUp = (event: React.KeyboardEvent) => {
+		switch (event.key) {
+			case ' ':
+			case 'Enter':
+				if (timeLeft) {
+					resetTimer();
+				} else {
+					startTimer();
+				}
+				break;
+			default:
+				break;
+		}
+	};
 	const startTimer = () => {
 		setTimeLeft(10);
 	};
@@ -34,19 +48,27 @@ const Countdown = () => {
 	};
 	const rightToRender =
 		timeLeft === null ? (
-			<button className='button' onClick={startTimer}>
+			<button
+				className='button'
+				tabIndex={0}
+				aria-label='Start Timer'
+				onClick={startTimer}
+				onKeyUp={handleKeyUp}>
 				Start timer
 			</button>
 		) : isPaused ? (
-			'Paused...'
+			<span aria-live='polite'>Paused</span>
 		) : (
-			timeLeft
+			<span aria-live='polite'>{timeLeft}</span>
 		);
 	return (
 		<div
 			onMouseMove={timeLeft ? pauseTimer : undefined}
 			onMouseOut={timeLeft ? resumeTimer : undefined}
-			onClick={timeLeft ? resetTimer : undefined}>
+			onClick={timeLeft ? resetTimer : undefined}
+			tabIndex={0}
+			aria-label={timeLeft ? 'Reset Timer' : 'Start Timer'}
+			onKeyUp={handleKeyUp}>
 			{rightToRender}
 		</div>
 	);
