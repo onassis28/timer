@@ -45,6 +45,7 @@ const Countdown = () => {
 
 	const resetTimer = () => {
 		setTimeLeft(null);
+		setIsPaused(false);
 	};
 	const rightToRender =
 		timeLeft === null ? (
